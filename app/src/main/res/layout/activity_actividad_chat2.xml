@@ -22,7 +22,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textInputEditText"
         android:layout_width="269dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="16dp"
         android:hint="@string/barraEscribir"
