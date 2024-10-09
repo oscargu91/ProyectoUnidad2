@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void enviar(View view) {
-        EditText textoEdit = findViewById(R.id.idEditText);
+        EditText textoEdit = findViewById(R.id.idEditText1);
         String texto = textoEdit.getText().toString();  // Obtener el texto
 
 

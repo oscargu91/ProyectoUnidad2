@@ -1,6 +1,9 @@
 package com.example.proyectoud2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +24,8 @@ public class ActividadChat2 extends AppCompatActivity {
             return insets;
         });
 
-        TextView textView = findViewById(R.id.tv_actividad2);
+        TextView textView2 = findViewById(R.id.idEditText1);
         Intent intento= getIntent();
-        textView.setText(intento.getStringExtra("claveTexto")); // Mostrar el valor en un TextView
+        textView2.setText(intento.getStringExtra("claveTexto")); // Mostrar el valor en un TextView
     }
 }
