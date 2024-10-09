@@ -2,6 +2,8 @@ package com.example.proyectoud2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -22,10 +24,29 @@ public class ActividadChat2 extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+
+
+
+
         });
 
-        TextView textView2 = findViewById(R.id.idEditText1);
+        TextView textView2 = findViewById(R.id.tv_act2Grande);
         Intent intento= getIntent();
         textView2.setText(intento.getStringExtra("claveTexto")); // Mostrar el valor en un TextView
+
+    }
+
+    public void enviar(View view) {
+
+        EditText textoEdit = findViewById(R.id.idEditText2);
+        String texto = textoEdit.getText().toString();  // Obtener el texto
+
+
+        Intent intento = new Intent(this,MainActivity.class);
+        intento.putExtra("claveTexto",texto);
+
+        startActivity(intento);
+
+
     }
 }
