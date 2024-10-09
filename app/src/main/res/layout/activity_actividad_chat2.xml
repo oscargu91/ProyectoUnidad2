@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputEditText"
         android:layout_width="269dp"
         android:layout_height="43dp"
         android:layout_marginEnd="12dp"
@@ -37,4 +38,18 @@
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ScrollView
+        android:layout_width="400dp"
+        android:layout_height="550dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="45dp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

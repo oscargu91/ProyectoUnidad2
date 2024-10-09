@@ -20,5 +20,9 @@ public class ActividadChat2 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        TextView textView = findViewById(R.id.tv_actividad2);
+        Intent intento= getIntent();
+        textView.setText(intento.getStringExtra("claveTexto")); // Mostrar el valor en un TextView
     }
 }

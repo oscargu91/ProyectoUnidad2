@@ -1,6 +1,9 @@
 package com.example.proyectoud2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +23,25 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
     }
+
+    public void enviar(View view) {
+        EditText textoEdit = findViewById(R.id.idEditText);
+        String texto = textoEdit.getText().toString();  // Obtener el texto
+
+
+        Intent intento = new Intent(this,ActividadChat2.class);
+        intento.putExtra("claveTexto",texto);
+
+        startActivity(intento);
+
+
+
+
+    }
+
+
+
 }
