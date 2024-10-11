@@ -23,8 +23,8 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:onClick="enviar"
         android:text="@string/boton"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,21 +32,23 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/idEditText1"
-        android:layout_width="269dp"
+        android:layout_width="240dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="28dp"
         android:hint="@string/barraEscribir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button" />
 
     <TextView
         android:id="@+id/tv_act1Grande"
-        android:layout_width="350dp"
-        android:layout_height="550dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="40dp"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

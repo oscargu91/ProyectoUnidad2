@@ -16,11 +16,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
-    private ArrayList<String> historialConversacion; // Lista para el historial
-
-
+// Creo un ArrayList para guardar el historial que se va acumulando en el textView
+    private ArrayList<String> historialConversacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,60 +30,59 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Indico cuál es el textView del que quiero obtener la información
         TextView textView3 = findViewById(R.id.tv_act1Grande);
+        //Declaro el intento
         Intent intento= getIntent();
 
-
+        // Guardo en el ArrayList creado el historial traido por el intento
         historialConversacion = intento.getStringArrayListExtra("historial");
 
+        // Si el arrayList no esta inicializado (es null) se crea uno nuevo
         if (historialConversacion == null) {
             historialConversacion = new ArrayList<>();
         }
 
-        // Mostrar todo el historial en el TextView
+        // Muestro todo el historial en el textView llamando al metodo actualizarConversacion
         actualizarConversacion(textView3);
     }
 
     // Método para actualizar el TextView con la conversación actualizada
     private void actualizarConversacion(TextView textView) {
+
+        // Creo un StringBuilder
         StringBuilder sb = new StringBuilder();
+
+        // Creo un bucle que recorre el arrayList donde se guarda la conversación
         for (String mensaje : historialConversacion) {
-            sb.append(mensaje).append("\n"); // Añadir cada mensaje
+
+            // Se añade mensaje al stringBuilder, uno al final del otro con salto de línea
+            sb.append(mensaje).append("\n");
         }
-        textView.setText(sb.toString()); // Mostrar en el TextView
+
+        // Se muestra el texto en el textView
+        textView.setText(sb.toString());
     }
 
 
-
-
-    /*textView3.setText(intento.getStringExtra("claveTexto")); // Mostrar el valor en un TextView*/
-
-
-
-
+// Creación del metodo onClick del botón
 
     public void enviar(View view) {
         EditText textoEdit = findViewById(R.id.idEditText1);
-        String texto = textoEdit.getText().toString();  // Obtener el texto
+        // Obtener el texto
+        String texto = textoEdit.getText().toString();
 
+        // Añadir el mensaje a la lista debajo de User A
+        historialConversacion.add("User A: \n" + texto);
 
-        // Añadir el mensaje a la lista
-        historialConversacion.add("User A: " + texto);
-
-
+        // Creamos el intento que llevará la informacion a la ActividadChat2
         Intent intento = new Intent(this,ActividadChat2.class);
 
-        intento.putStringArrayListExtra("historial", historialConversacion); // Pasar el historial
-
-       /* intento.putExtra("claveTexto",texto);*/
+        // Pasamos historial
+        intento.putStringArrayListExtra("historial", historialConversacion);
 
         startActivity(intento);
 
-
-
-
     }
-
-
 
 }
