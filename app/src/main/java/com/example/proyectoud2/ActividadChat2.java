@@ -1,7 +1,12 @@
 package com.example.proyectoud2;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -12,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+import android.text.SpannableStringBuilder;
 import java.util.ArrayList;
 
 public class ActividadChat2 extends AppCompatActivity {
@@ -49,19 +54,37 @@ public class ActividadChat2 extends AppCompatActivity {
         actualizarConversacion(textView2);
     }
 
+
     // Método para actualizar el TextView con la conversación actualizada
+
+
     private void actualizarConversacion(TextView textView) {
-        // Creo un StringBuilder
-        StringBuilder sb = new StringBuilder();
+        // Crear un SpannableStringBuilder para manejar los textos con colores
+        SpannableStringBuilder spannableBuilder = new SpannableStringBuilder();
 
         // Creo un bucle que recorre el arrayList donde se guarda la conversación
         for (String mensaje : historialConversacion) {
 
+            // Crear SpannableString para aplicar colores
+            SpannableString spannableString = new SpannableString(mensaje);
+       if(mensaje.startsWith("User A:")){
+           ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLUE);
+           spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+           // Aplicar estilo de negrita a "User A:"
+           spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User A:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+       }
+       else if (mensaje.startsWith("User B:")) {
+               ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.GREEN);
+               spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+           // Aplicar estilo de negrita a "User B:"
+           spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User A:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+       }
+
             // Se añade mensaje al stringBuilder, uno al final del otro con salto de línea
-            sb.append(mensaje).append("\n");
+            spannableBuilder.append(spannableString).append("\n");
         }
         // Se muestra el texto en el textView
-        textView.setText(sb.toString());
+        textView.setText(spannableBuilder);
     }
 
     // Creación del metodo onClick del botón
@@ -70,17 +93,21 @@ public class ActividadChat2 extends AppCompatActivity {
         EditText textoEdit = findViewById(R.id.idEditText2);
         // Obtener el texto
         String texto = textoEdit.getText().toString();  // Obtener el texto
+        if (!texto.isEmpty()) {
 
-        // Añadir el mensaje a la lista debajo de User B
-        historialConversacion.add("User B: \n" + texto);
+            // Añadir el mensaje a la lista debajo de User B
+            historialConversacion.add("User B:\n" + texto);
 
-        // Creamos el intento que llevará la informacion a la MainActivity
-        Intent intento = new Intent(this,MainActivity.class);
+            // Creamos el intento que llevará la informacion a la MainActivity
+            Intent intento = new Intent(this, MainActivity.class);
 
-        // Pasamos historial
-        intento.putStringArrayListExtra("historial", historialConversacion); // Pasar el historial
+            // Pasamos historial
+            intento.putStringArrayListExtra("historial", historialConversacion); // Pasar el historial
 
-        startActivity(intento);
-
+            startActivity(intento);
+        }
+        else{
+            //No se realiza acción.
+        }
     }
 }

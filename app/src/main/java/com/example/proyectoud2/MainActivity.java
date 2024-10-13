@@ -1,7 +1,12 @@
 package com.example.proyectoud2;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+import android.text.SpannableStringBuilder;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,18 +55,36 @@ public class MainActivity extends AppCompatActivity {
     // Método para actualizar el TextView con la conversación actualizada
     private void actualizarConversacion(TextView textView) {
 
-        // Creo un StringBuilder
-        StringBuilder sb = new StringBuilder();
+        // Uso SpannableStringBuilder para manejar textos con estilos
+        SpannableStringBuilder spannableBuilder = new SpannableStringBuilder();
 
-        // Creo un bucle que recorre el arrayList donde se guarda la conversación
+        // Recorro el arrayList donde se guarda la conversación
         for (String mensaje : historialConversacion) {
 
-            // Se añade mensaje al stringBuilder, uno al final del otro con salto de línea
-            sb.append(mensaje).append("\n");
+            SpannableString spannableString = new SpannableString(mensaje);
+
+            // Aplicar color azul para "User A"
+            if (mensaje.startsWith("User A:")) {
+                ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLUE);
+                spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                // Aplicar estilo de negrita a "User A:"
+                spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User A:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            // Aplicar color verde para "User B"
+            else if (mensaje.startsWith("User B:")) {
+                ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.GREEN);
+                spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                // Aplicar estilo de negrita a "User A:"
+                spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User B:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
+            // Añadir el mensaje con formato de color al SpannableStringBuilder
+            spannableBuilder.append(spannableString).append("\n");
+
         }
 
         // Se muestra el texto en el textView
-        textView.setText(sb.toString());
+        textView.setText(spannableBuilder);
     }
 
 
@@ -71,18 +94,22 @@ public class MainActivity extends AppCompatActivity {
         EditText textoEdit = findViewById(R.id.idEditText1);
         // Obtener el texto
         String texto = textoEdit.getText().toString();
+        if (!texto.isEmpty()) {
 
-        // Añadir el mensaje a la lista debajo de User A
-        historialConversacion.add("User A: \n" + texto);
+           // Añadir el mensaje a la lista debajo de User A
+            historialConversacion.add("User A:\n" + texto);
 
-        // Creamos el intento que llevará la informacion a la ActividadChat2
-        Intent intento = new Intent(this,ActividadChat2.class);
+            // Creamos el intento que llevará la informacion a la ActividadChat2
+            Intent intento = new Intent(this, ActividadChat2.class);
 
-        // Pasamos historial
-        intento.putStringArrayListExtra("historial", historialConversacion);
+            // Pasamos historial
+            intento.putStringArrayListExtra("historial", historialConversacion);
 
-        startActivity(intento);
-
+            startActivity(intento);
+        }
+        else {
+            // No se realiza acción
+        }
     }
 
 }
