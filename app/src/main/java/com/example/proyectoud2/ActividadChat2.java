@@ -7,6 +7,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -40,6 +41,7 @@ public class ActividadChat2 extends AppCompatActivity {
 
         // Indico cuál es el textView del que quiero obtener la información
         TextView textView2 = findViewById(R.id.tv_act2Grande);
+        textView2.setGravity(Gravity.START);
         //Declaro el intento
         Intent intento= getIntent();
         // Guardo en el ArrayList creado el historial traido por el intento
@@ -68,13 +70,13 @@ public class ActividadChat2 extends AppCompatActivity {
             // Crear SpannableString para aplicar colores
             SpannableString spannableString = new SpannableString(mensaje);
        if(mensaje.startsWith("User A:")){
-           ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLUE);
+           ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLACK);
            spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
            // Aplicar estilo de negrita a "User A:"
            spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User A:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
        }
        else if (mensaje.startsWith("User B:")) {
-               ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.GREEN);
+           ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.WHITE);
                spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
            // Aplicar estilo de negrita a "User B:"
            spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User A:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
