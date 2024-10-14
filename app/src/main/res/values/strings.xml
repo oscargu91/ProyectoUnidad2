@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ProyectoUd2</string>
+    <string name="Chat1">User A</string>
+    <string name="boton">Enviar</string>
+    <string name="Chat2">User B</string>
+    <string name="barraEscribir">Escribe aquí</string>
 </resources>
