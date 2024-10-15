@@ -8,13 +8,9 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -85,12 +81,12 @@ public class MainActivity extends AppCompatActivity {
         for (String mensaje : historialConversacion) {
 
             SpannableString spannableString = new SpannableString(mensaje);
-            int backgroundColor;
+
 
 
             if (mensaje.startsWith(userAName)) {
 
-                backgroundColor = Color.parseColor("#ADD8E6");
+
                 ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLACK);
                 spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, userAName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -98,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
             else if (mensaje.startsWith(userBName)) {
 
-                backgroundColor = Color.parseColor("#90EE90");
+
                 ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.WHITE);
                 spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, userBName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
