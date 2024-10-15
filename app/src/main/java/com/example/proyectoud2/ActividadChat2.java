@@ -7,6 +7,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -22,13 +23,15 @@ import android.text.SpannableStringBuilder;
 import java.util.ArrayList;
 
 public class ActividadChat2 extends AppCompatActivity {
-    // Creo un ArrayList para guardar el historial que se va acumulando en el textView
+
+    // ArrayList para guardar el historial que se va acumulando en el textView
     private ArrayList<String> historialConversacion;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("MainActivity", "onCreate: Actividad iniciada");
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_actividad_chat2);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -38,78 +41,83 @@ public class ActividadChat2 extends AppCompatActivity {
 
         });
 
-
-        // Indico cuál es el textView del que quiero obtener la información
         TextView textView2 = findViewById(R.id.tv_act2Grande);
         textView2.setGravity(Gravity.START);
-        //Declaro el intento
         Intent intento= getIntent();
-        // Guardo en el ArrayList creado el historial traido por el intento
         historialConversacion = intento.getStringArrayListExtra("historial");
+
 
         // Si el arrayList no esta inicializado (es null) se crea uno nuevo
         if (historialConversacion == null) {
             historialConversacion = new ArrayList<>();
+            Log.i("MainActivity", "onCreate: No se recibió historial. Inicializando lista vacía.");
+        }
+        else {
+            Log.i("MainActivity", "onCreate: Historial recibido con " + historialConversacion.size() + " mensajes.");
         }
 
-        //Muestro todo el historial en el textView llamando al metodo actualizarConversacion
         actualizarConversacion(textView2);
+        Log.i("MainActivity", "onCreate: Configuración de la actividad completada.");
     }
 
 
-    // Método para actualizar el TextView con la conversación actualizada
 
+    // Método que actualiza el TextView con el historial de conversación,
+    // aplicando estilos y colores según el usuario que envió cada mensaje.
 
     private void actualizarConversacion(TextView textView) {
-        // Crear un SpannableStringBuilder para manejar los textos con colores
+
         SpannableStringBuilder spannableBuilder = new SpannableStringBuilder();
 
-        // Creo un bucle que recorre el arrayList donde se guarda la conversación
         for (String mensaje : historialConversacion) {
 
-            // Crear SpannableString para aplicar colores
             SpannableString spannableString = new SpannableString(mensaje);
+            int backgroundColor;
+
        if(mensaje.startsWith("User A:")){
+
+           backgroundColor = Color.parseColor("#ADD8E6");
            ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLACK);
            spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-           // Aplicar estilo de negrita a "User A:"
            spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User A:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
        }
        else if (mensaje.startsWith("User B:")) {
+
+           backgroundColor = Color.parseColor("#90EE90");
            ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.WHITE);
-               spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-           // Aplicar estilo de negrita a "User B:"
+           spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
            spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User A:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
        }
-
-            // Se añade mensaje al stringBuilder, uno al final del otro con salto de línea
-            spannableBuilder.append(spannableString).append("\n");
+       else{
+           Log.w("MainActivity", "actualizarConversacion: Mensaje no reconocido - " + mensaje);
+       }
+           spannableBuilder.append(spannableString).append("\n");
         }
-        // Se muestra el texto en el textView
+
         textView.setText(spannableBuilder);
+        Log.i("MainActivity", "actualizarConversacion: Finalizada la actualización del TextView.");
     }
 
-    // Creación del metodo onClick del botón
+
+
+    // Método que se llama al hacer clic en el botón "Enviar".
+    // Este método recoge el texto ingresado en el EditText,
+    // lo añade al historial de conversación y lo envía a la ActividadChat2.
     public void enviar(View view) {
 
         EditText textoEdit = findViewById(R.id.idEditText2);
-        // Obtener el texto
         String texto = textoEdit.getText().toString();  // Obtener el texto
+
         if (!texto.isEmpty()) {
 
-            // Añadir el mensaje a la lista debajo de User B
             historialConversacion.add("User B:\n" + texto);
-
-            // Creamos el intento que llevará la informacion a la MainActivity
+            Log.i("MainActivity", "enviar: El mensaje fue añadido al historial.");
             Intent intento = new Intent(this, MainActivity.class);
-
-            // Pasamos historial
             intento.putStringArrayListExtra("historial", historialConversacion); // Pasar el historial
-
             startActivity(intento);
         }
         else{
-            //No se realiza acción.
+            Log.w("MainActivity", "enviar: Campo de texto vacío. No se envió ningún mensaje.");
         }
     }
 }
