@@ -10,7 +10,9 @@ import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -27,12 +29,18 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> historialConversacion;
 
 
+    String userAName ;
+    String userBName ;
+
     // Método llamado cuando la actividad se crea por primera vez.
     // Aquí es donde se inicializan los elementos de la interfaz de usuario,
     // se configuran los parámetros de la actividad y se recuperan datos de intent.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        userAName = getString(R.string.Chat1);
+        userBName = getString(R.string.Chat2);
         Log.i("MainActivity", "onCreate: Actividad iniciada");
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -43,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         TextView textView3 = findViewById(R.id.tv_act1Grande);
-        textView3.setGravity(Gravity.START);
+
         Intent intento= getIntent();
 
         historialConversacion = intento.getStringArrayListExtra("historial");
@@ -67,8 +75,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void actualizarConversacion(TextView textView) {
 
+
         Log.i("MainActivity", "actualizarConversacion: Actualizando TextView con " + historialConversacion.size() + " mensajes.");
         SpannableStringBuilder spannableBuilder = new SpannableStringBuilder();
+
+
 
 
         for (String mensaje : historialConversacion) {
@@ -77,20 +88,20 @@ public class MainActivity extends AppCompatActivity {
             int backgroundColor;
 
 
-            if (mensaje.startsWith("User A:")) {
+            if (mensaje.startsWith(userAName)) {
 
                 backgroundColor = Color.parseColor("#ADD8E6");
                 ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLACK);
                 spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User A:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, userAName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
-            else if (mensaje.startsWith("User B:")) {
+            else if (mensaje.startsWith(userBName)) {
 
                 backgroundColor = Color.parseColor("#90EE90");
                 ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.WHITE);
                 spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User B:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, userBName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             else{
                 Log.w("MainActivity", "actualizarConversacion: Mensaje no reconocido - " + mensaje);
@@ -114,13 +125,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void enviar(View view) {
 
+
         EditText textoEdit = findViewById(R.id.idEditText1);
         String texto = textoEdit.getText().toString();
 
 
         if (!texto.isEmpty()) {
 
-            historialConversacion.add("User A:\n" + texto);
+            historialConversacion.add(userAName +"\n"+ texto);
             Log.i("MainActivity", "enviar: El mensaje fue añadido al historial.");
             Intent intento = new Intent(this, ActividadChat2.class);
             intento.putStringArrayListExtra("historial", historialConversacion);

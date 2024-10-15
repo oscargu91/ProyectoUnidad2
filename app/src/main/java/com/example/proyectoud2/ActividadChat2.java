@@ -27,9 +27,15 @@ public class ActividadChat2 extends AppCompatActivity {
     // ArrayList para guardar el historial que se va acumulando en el textView
     private ArrayList<String> historialConversacion;
 
+    String userAName ;
+    String userBName ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        userAName = getString(R.string.Chat1);
+        userBName = getString(R.string.Chat2);
+
         super.onCreate(savedInstanceState);
         Log.i("MainActivity", "onCreate: Actividad iniciada");
         EdgeToEdge.enable(this);
@@ -42,7 +48,6 @@ public class ActividadChat2 extends AppCompatActivity {
         });
 
         TextView textView2 = findViewById(R.id.tv_act2Grande);
-        textView2.setGravity(Gravity.START);
         Intent intento= getIntent();
         historialConversacion = intento.getStringArrayListExtra("historial");
 
@@ -69,24 +74,25 @@ public class ActividadChat2 extends AppCompatActivity {
 
         SpannableStringBuilder spannableBuilder = new SpannableStringBuilder();
 
+
         for (String mensaje : historialConversacion) {
 
             SpannableString spannableString = new SpannableString(mensaje);
             int backgroundColor;
 
-       if(mensaje.startsWith("User A:")){
+       if(mensaje.startsWith(userAName)){
 
            backgroundColor = Color.parseColor("#ADD8E6");
            ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLACK);
            spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-           spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User A:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+           spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, userAName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
        }
-       else if (mensaje.startsWith("User B:")) {
+       else if (mensaje.startsWith(userBName)) {
 
            backgroundColor = Color.parseColor("#90EE90");
            ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.WHITE);
            spannableString.setSpan(colorSpan, 0, mensaje.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-           spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, "User A:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+           spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, userBName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
        }
        else{
            Log.w("MainActivity", "actualizarConversacion: Mensaje no reconocido - " + mensaje);
@@ -110,7 +116,7 @@ public class ActividadChat2 extends AppCompatActivity {
 
         if (!texto.isEmpty()) {
 
-            historialConversacion.add("User B:\n" + texto);
+            historialConversacion.add(userBName +"\n" + texto);
             Log.i("MainActivity", "enviar: El mensaje fue añadido al historial.");
             Intent intento = new Intent(this, MainActivity.class);
             intento.putStringArrayListExtra("historial", historialConversacion); // Pasar el historial
