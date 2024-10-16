@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ProyectoUd2</string>
     <string name="Chat1">Usuario A</string>
-    <string name="boton">Enviar</string>
+    <string name="boton">Dalle!</string>
     <string name="Chat2">Usuario B</string>
-    <string name="barraEscribir">Escribe aquí...</string>
+    <string name="barraEscribir">Escribe por acá...</string>
 </resources>

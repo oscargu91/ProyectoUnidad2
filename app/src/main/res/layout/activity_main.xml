@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#62FFEB3B"
+    android:background="@drawable/fondo"
     tools:context=".MainActivity">
 
     <TextView
@@ -15,6 +15,7 @@
         android:layout_marginStart="72dp"
         android:layout_marginTop="16dp"
         android:text="@string/Chat1"
+        android:textColor="#090909"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +37,12 @@
         android:layout_height="48dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="28dp"
+        android:background="@drawable/texto_redondeado"
+        android:backgroundTint="#95F2F0F0"
+        android:textStyle="bold"
         android:hint="@string/barraEscribir"
+        android:shadowColor="@color/white"
+        android:textColorHint="#E6DCDC"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button" />
 
@@ -46,9 +52,21 @@
         android:layout_height="500dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="32dp"
+        android:gravity="center"
         android:layout_marginBottom="24dp"
+        android:background="@drawable/texto_redondeado"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="99dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/user1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
